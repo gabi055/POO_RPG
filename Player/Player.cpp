@@ -83,7 +83,9 @@ Action Player::takeAction(vector<Enemy*> enemies) {
             currentAction.speed = getSpeed();
             break;
         case 2:
-            defend();
+            currentAction.action = [this]() {
+                defense();
+            };
             break;
         default:
             cout << "Invalid action" << endl;
