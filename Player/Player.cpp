@@ -83,8 +83,8 @@ Action Player::takeAction(vector<Enemy*> enemies) {
             currentAction.speed = getSpeed();
             break;
         case 2:
-            currentAction.action = [this]() {
-                defense();
+            currentAction.action = [this](){
+                defend();
             };
             currentAction.speed = getSpeed();
             break;
