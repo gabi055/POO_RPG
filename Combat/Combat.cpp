@@ -3,6 +3,7 @@
 //
 
 #include "Combat.h"
+
 #include <string>
 #include <iostream>
 #include <utility>
@@ -99,6 +100,10 @@ void Combat::executeActions(vector<Character*>::iterator participant) {
         currentAction.action();
         actionQueue.pop();
 
+        if(currentAction.target != nullptr){
+            currentAction.target ->resetDefense();
+        }
+
         //Check if there are any dead characters
         checkParticipantStatus(*participant);
         checkParticipantStatus(currentAction.target);
@@ -124,10 +129,20 @@ void Combat::registerActions(vector<Character*>::iterator participantIterator) {
             Action playerAction = ((Player*) *participantIterator)->takeAction(enemies);
             actionQueue.push(playerAction);
         } else {
-            Action enemyAction = ((Enemy*) *participantIterator)->takeAction(partyMembers);
-            actionQueue.push(enemyAction);
+            Enemy *enemyParticipant = dynamic_cast<Enemy *>(*participantIterator);
+            if (enemyParticipant) {
+                if (enemyParticipant->shouldDefend()) {
+                    Action defendAction;
+                    defendAction.action = [enemyParticipant]() {
+                        enemyParticipant->defend();
+                    };
+                    actionQueue.push(defendAction);
+                } else {
+                    Action enemyAction = ((Enemy *) *participantIterator)->takeAction(partyMembers);
+                    actionQueue.push(enemyAction);
+                }
+            }
         }
-
         participantIterator++;
     }
 }

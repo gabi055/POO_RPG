@@ -28,6 +28,28 @@ void Enemy::takeDamage(int damage) {
     }
 }
 
+void Enemy::defend() {
+    DefenseBase = defense;
+    defense += defense * 0.2;
+    cout << name << " is defending!" << endl;
+    defense = DefenseBase;
+}
+
+void Enemy::resetDefense(){
+    defense = DefenseBase;
+}
+
+bool Enemy::shouldDefend(){
+    if(health < maxHealth * 0.15){
+        int chance = rand() % 100;
+        return chance < 40;
+    }
+    return false;
+}
+
+int Enemy::getMaxHealth(){
+    return maxHealth;
+}
 int Enemy::getExperience() {
     return experience;
 }

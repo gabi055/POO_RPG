@@ -21,10 +21,9 @@ public:
 
     virtual void doAttack(Character *target) = 0;
     virtual void takeDamage(int damage) = 0;
+    virtual void defend() = 0;
+    virtual void resetDefense() = 0;
 
-    //TODO: Implementar metodo de defensa
-    //Incrementar la defensa un 20% solo por el turno actual
-    void defend();
 
     bool flee(Character* target);
     string getName();

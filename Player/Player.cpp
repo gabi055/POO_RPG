@@ -40,6 +40,17 @@ void Player::gainExperience(int exp) {
     }
 }
 
+void Player::defend() {
+    DefenseBase = defense;
+    defense += defense * 0.2;
+    cout << name << " is defending!" << endl;
+    defense = DefenseBase;
+}
+
+void Player::resetDefense(){
+    defense = DefenseBase;
+}
+
 Character* Player::selectTarget(vector<Enemy*> possibleTargets) {
     int selectedTarget = 0;
     cout << "Select a target: " << endl;
@@ -55,9 +66,9 @@ Character* Player::selectTarget(vector<Enemy*> possibleTargets) {
 Action Player::takeAction(vector<Enemy*> enemies) {
     int action = 0;
     cout << "Select an action: " << endl
-    << "1. Attack" << endl;
+         << "1. Attack" << endl
+         << "2. Defend" << endl;
 
-    //TODO: Validate input
     cin >> action;
     Action currentAction;
     Character* target = nullptr;
@@ -70,6 +81,9 @@ Action Player::takeAction(vector<Enemy*> enemies) {
                 doAttack(target);
             };
             currentAction.speed = getSpeed();
+            break;
+        case 2:
+            defend();
             break;
         default:
             cout << "Invalid action" << endl;
