@@ -3,6 +3,7 @@
 //
 
 #include "Combat.h"
+#include "../Player/Player.h"
 
 #include <string>
 #include <iostream>
