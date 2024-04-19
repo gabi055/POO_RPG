@@ -3,8 +3,12 @@
 //
 
 #include "Character.h"
-Character::Character(string _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer) {
-    name = _name;
+#include <string>
+#include <cstring>
+
+Character::Character(const char* _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer) {
+    strncpy(name, reinterpret_cast<const char *>(_name), sizeof(name));
+    name[sizeof(name) - 1] = '\0';
     health = _health;
     attack = _attack;
     defense = _defense;
@@ -12,7 +16,7 @@ Character::Character(string _name, int _health, int _attack, int _defense, int _
     isPlayer = _isPlayer;
 }
 
-string Character::getName() {
+const char* Character::getName() {
     return name;
 }
 
@@ -32,8 +36,10 @@ int Character::getSpeed() {
     return speed;
 }
 
-string Character::toString() {
-    return "Name: " + name + "\nHealth: " + to_string(health) + "\nAttack: " + to_string(attack) + "\nDefense: " + to_string(defense) + "\nSpeed: " + to_string(speed);
+const char* Character::toString() {
+    static char buffer[300];
+    sprintf(buffer, "Name: %s\nHealth: %d\nAttack: %d\nDefense: %d\nSpeed: %d", name, health, attack, defense, speed);
+    return buffer;
 }
 
 bool Character::getIsPlayer() {
