@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
+#include <cstring>
 
 using namespace std;
 
@@ -50,14 +51,20 @@ void Combat::combatPrep() {
     sort(participants.begin(), participants.end(), compareSpeed);
 }
 
-string Combat::toString() {
-    string result = "";
-    vector<Character*>::iterator it;
-    for(it = participants.begin(); it != participants.end(); it++){
-        result += (*it)->toString() + "\n";
+const char* Combat::toString() {
+    const char* result = "";
+    for(auto it = participants.begin(); it != participants.end(); it++) {
+        const char *CharaString = (*it)->toString();
+        int tamano = strlen(CharaString) + strlen(result) + 1;
+        char *temp = new char[tamano];
+        strcpy(temp, result);
+        strcat(temp, CharaString);
+        strcat(temp, "\n");
+        delete[] result;
+        result = temp;
     }
-    cout<<"===================="<<endl;
-    return result;
+        cout<<"===================="<<endl;
+        return result;
 }
 
 Character* Combat::getTarget(Character* attacker) {
@@ -72,7 +79,7 @@ Character* Combat::getTarget(Character* attacker) {
 }
 
 void Combat::doCombat() {
-    cout<< "Inicio del combate" << endl;
+    cout<< "Battle begins!" << endl;
     combatPrep();
     int round = 1;
     //Este while representa las rondas del combate
@@ -106,6 +113,14 @@ void Combat::executeActions(vector<Character*>::iterator participant) {
         //Check if there are any dead characters
         checkParticipantStatus(*participant);
         checkParticipantStatus(currentAction.target);
+
+        //Si el enemigo es derrotado, se queda con la experiencia
+        if(currentAction.target != nullptr && currentAction.target->getHealth() <= 0 && currentAction.target->getIsPlayer() ==false){
+            Player* player = dynamic_cast<Player*>(*participant);
+            if(player != nullptr) {
+                player ->gainExperience((dynamic_cast<Enemy*>(currentAction.target)) ->getExperience());
+            }
+        }
     }
 }
 

@@ -30,13 +30,26 @@ void Player::takeDamage(int damage) {
 
 void Player::levelUp() {
     level++;
+    //Incrementar las estadisticas al subir de nivel
+    health += 6;
+    attack += 3;
+    defense += 1;
+    speed += 3;
+
+    cout<<"¡You've reached level "<<level<<"!"<<endl;
+    cout<<"¡Your stats are:"<<endl;
+    cout<<"Health: "<< health <<endl;
+    cout<<"Attack: "<< attack <<endl;
+    cout<<"Defense: "<< defense <<endl;
+    cout<<"Speed: "<< speed <<endl;
 }
 
 void Player::gainExperience(int exp) {
     experience += exp;
-    if (experience >= 100) {
+    while(experience>=100){
+        int RestoExp = experience - 100;
         levelUp();
-        experience = 100-experience;
+        experience = RestoExp;
     }
 }
 

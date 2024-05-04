@@ -28,7 +28,7 @@ public:
     Combat();
     void doCombat();
     void addParticipant(Character *participant);
-    string toString();
+    const char* toString();
 };
 
 
