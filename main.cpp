@@ -4,8 +4,23 @@
 #include "Combat/Combat.h"
 #include "Files/FileHandler.h"
 
+Player* loadPlayerInfo(){
+    try{
+        char buffer[Player::BUFFER_SIZE];
+        FileHandler fileHandler = FileHandler();
+        fileHandler.readFromFile("PlayerInfo.data", buffer, Player::BUFFER_SIZE);
+        return Player::unserialize(buffer);
+    } catch(int error){
+        //return new Player("Victor", 5, 10, 4, 3);
+        char playerName[100];
+        cout << "Error loading player information. Enter the player's name: " << endl;
+        cin.getline(playerName, sizeof(playerName));
+        return new Player(playerName,5,10, 4, 3);
+    }
+}
+
 int main() {
-    Player *player = new Player("Victor", 50, 10, 4, 3);
+    Player *player = loadPlayerInfo();
     Enemy *enemy = new Enemy("Goblin", 30, 6, 2, 5, 10);
     Enemy *enemy2 = new Enemy("Orc", 30, 6, 2, 5, 10);
     Enemy *enemy3 = new Enemy("Little boots", 40, 7, 2, 4, 10);
@@ -15,7 +30,7 @@ int main() {
     char* buffer = player->serialize();
     fileHandler->writeToFile("Personaje1.data", buffer, Player::BUFFER_SIZE);
 
-    char* bufferLectura;
+    char bufferLectura[Player::BUFFER_SIZE];
     fileHandler->readFromFile("Personaje1.data", bufferLectura, Player::BUFFER_SIZE);
 
     Player *unserializedPlayer = Player::unserialize(bufferLectura);

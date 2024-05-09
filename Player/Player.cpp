@@ -4,13 +4,27 @@
 
 #include "Player.h"
 #include <iostream>
+#include "../Files/FileHandler.h"
 
 using namespace std;
+
+void Player::SaveProgress(){
+    char* buffer = this->serialize();
+    FileHandler fileHandler = FileHandler();
+
+    fileHandler.writeToFile("PlayerInfo.data", buffer, Player::BUFFER_SIZE);
+}
 
 Player::Player(const char* _name, int _health, int _attack, int _defense, int _speed) : Character(_name, _health, _attack, _defense, _speed, true) {
     level = 1;
     experience = 0;
 }
+
+Player::Player(const char* _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer, int _level, int _experience): Character(_name, _health, _attack, _defense, _speed, _isPlayer){
+    level = _level;
+    experience = _experience;
+}
+
 
 void Player::doAttack(Character *target) {
     target->takeDamage(attack);
@@ -80,7 +94,8 @@ Action Player::takeAction(vector<Enemy*> enemies) {
     int action = 0;
     cout << "Select an action: " << endl
          << "1. Attack" << endl
-         << "2. Defend" << endl;
+         << "2. Defend" << endl
+         << "3. Save Player Progress" << endl;
 
     cin >> action;
     Action currentAction;
@@ -101,14 +116,19 @@ Action Player::takeAction(vector<Enemy*> enemies) {
             };
             currentAction.speed = getSpeed();
             break;
+        case 3:
+            SaveProgress();
+            return takeAction(enemies);
+            break;
         default:
             cout << "Invalid action" << endl;
+            return takeAction(enemies);
             break;
     }
 
     return currentAction;
 }
-//Seialización: Arreglo donde cada elemento mida un char (1 byte)
+//Serialización: Arreglo donde cada elemento mida un char (1 byte)
 //Iterador: Puntero que se mueve a traves del buffer
 //Buffer: Arreglo
 char* Player::serialize() {

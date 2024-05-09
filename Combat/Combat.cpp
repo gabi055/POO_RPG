@@ -80,7 +80,7 @@ Character* Combat::getTarget(Character* attacker) {
 }
 
 void Combat::doCombat() {
-    cout<< "Battle begins!" << endl;
+    cout<< "\n Battle begins!" << endl;
     combatPrep();
     int round = 1;
     //Este while representa las rondas del combate

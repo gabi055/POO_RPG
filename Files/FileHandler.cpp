@@ -4,7 +4,7 @@
 
 #include "FileHandler.h"
 
-void FileHandler ::writeToFile(char *targetFilePath, char *buffer, unsigned int bufferSize) {
+void FileHandler::writeToFile(char *targetFilePath, char *buffer, unsigned int bufferSize) {
     writeStream.open(targetFilePath, ios::binary);
     writeStream.write(buffer, bufferSize);
     writeStream.close();
@@ -12,7 +12,10 @@ void FileHandler ::writeToFile(char *targetFilePath, char *buffer, unsigned int 
 
 char* FileHandler::readFromFile(char *targetFilePath, char* buffer, unsigned int bufferSize) {
     readStream.open(targetFilePath, ios::binary);
-    readStream.read(buffer, bufferSize);
-    readStream.close();
-    return buffer;
+    if(readStream){
+        readStream.read(buffer, bufferSize);
+        readStream.close();
+        return buffer;
+    }
+    throw 1;
 }

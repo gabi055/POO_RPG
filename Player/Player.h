@@ -18,9 +18,10 @@ private:
     int experience;
     int DefenseBase;
     void levelUp();
+    void SaveProgress();
 public:
     Player(const char* _name, int _health, int _attack, int _defense, int _speed);
-    Player(const char* _name, int _health, int _attack, int _defense, int _speed, bool isPlayer, int _level, int _experience);
+    Player(const char* _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer, int _level, int _experience);
     void doAttack(Character *target) override;
     void takeDamage(int damage) override;
     void defend() override;
