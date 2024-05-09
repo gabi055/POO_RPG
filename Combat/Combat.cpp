@@ -7,6 +7,7 @@
 #include <iostream>
 #include <utility>
 #include <cstring>
+#include <algorithm>
 
 using namespace std;
 

@@ -54,6 +54,15 @@ int Enemy::getExperience() {
     return experience;
 }
 
+void Enemy::levelUp() {
+    level++;
+    //Incrementar las estadisticas al subir de nivel
+    health += 6;
+    attack += 3;
+    defense += 1;
+    speed += 3;
+}
+
 Character* Enemy::selectTarget(vector<Player*> possibleTargets) {
     //target with less health
     int lessHealth = 9999999;

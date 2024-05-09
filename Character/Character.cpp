@@ -7,8 +7,7 @@
 #include <cstring>
 
 Character::Character(const char* _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer) {
-    strncpy(name, reinterpret_cast<const char *>(_name), sizeof(name));
-    name[sizeof(name) - 1] = '\0';
+    strcpy(name, _name);
     health = _health;
     attack = _attack;
     defense = _defense;

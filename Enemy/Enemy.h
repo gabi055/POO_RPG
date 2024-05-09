@@ -18,6 +18,8 @@ private:
     int experience;
     int DefenseBase;
     int maxHealth;
+    int level;
+    void levelUp();
 public:
     Enemy(const char* _name, int _health, int _attack, int _defense, int _speed, int _experience);
     void doAttack(Character *target) override;
