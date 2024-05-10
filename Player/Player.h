@@ -17,7 +17,6 @@ private:
     int level;
     int experience;
     int DefenseBase;
-    void levelUp();
     void SaveProgress();
 public:
     Player(const char* _name, int _health, int _attack, int _defense, int _speed);
@@ -25,12 +24,13 @@ public:
     void doAttack(Character *target) override;
     void takeDamage(int damage) override;
     void defend() override;
+    void levelUp();
     Character* selectTarget(vector<Enemy*> possibleTargets);
     Action takeAction(vector<Enemy*> enemies);
     char* serialize();
     static Player* unserialize(char* buffer);
 
-    void gainExperience(int exp);
+    void gainExperience(Enemy* enemies);
     static const unsigned int BUFFER_SIZE = sizeof (name) + sizeof (health) + sizeof(attack) + sizeof(defense) + sizeof(speed);
 
     //TODO: Implement use object

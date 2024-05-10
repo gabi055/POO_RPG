@@ -111,15 +111,16 @@ void Combat::executeActions(vector<Character*>::iterator participant) {
             currentAction.target ->resetDefense();
         }
 
-        //Check if there are any dead characters
+        //Verifica si hay muertos
         checkParticipantStatus(*participant);
         checkParticipantStatus(currentAction.target);
 
-        //Si el enemigo es derrotado, se queda con la experiencia
-        if(currentAction.target != nullptr && currentAction.target->getHealth() <= 0 && currentAction.target->getIsPlayer() ==false){
+
+        if (currentAction.target != nullptr && currentAction.target->getHealth() <= 0 && !currentAction.target->getIsPlayer()) {
             Player* player = dynamic_cast<Player*>(*participant);
-            if(player != nullptr) {
-                player ->gainExperience((dynamic_cast<Enemy*>(currentAction.target)) ->getExperience());
+            Enemy* enemy = dynamic_cast<Enemy*>(currentAction.target);
+            if (player != nullptr && enemy != nullptr) {
+                player -> gainExperience(enemy);
             }
         }
     }
@@ -144,7 +145,7 @@ void Combat::registerActions(vector<Character*>::iterator participantIterator) {
             Action playerAction = ((Player*) *participantIterator)->takeAction(enemies);
             actionQueue.push(playerAction);
         } else {
-            Enemy *enemyParticipant = dynamic_cast<Enemy *>(*participantIterator);
+           auto *enemyParticipant = dynamic_cast<Enemy *>(*participantIterator); //Enemy al inicio(auto)
             if (enemyParticipant) {
                 if (enemyParticipant->shouldDefend()) {
                     Action defendAction;

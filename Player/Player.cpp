@@ -58,13 +58,15 @@ void Player::levelUp() {
     cout<<"Speed: "<< speed <<endl;
 }
 
-void Player::gainExperience(int exp) {
+void Player::gainExperience(Enemy* enemies) {
+    int exp = enemies->getExperience();
     experience += exp;
     while(experience>=100){
         int RestoExp = experience - 100;
         levelUp();
         experience = RestoExp;
     }
+    cout << "Current experience: " << experience << endl;
 }
 
 void Player::defend() {
