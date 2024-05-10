@@ -10,8 +10,9 @@
 using namespace std;
 using namespace combat_utils;
 
-Enemy::Enemy(const char* _name, int _health, int _attack, int _defense, int _speed, int _experience) : Character(_name, _health, _attack, _defense, _speed, false) {
+Enemy::Enemy(const char* _name, int _health, int _maxHealth, int _attack, int _defense, int _speed, int _experience, int _level) : Character(_name, _health, _maxHealth, _attack, _defense, _speed, false) {
     experience = _experience;
+    level = _level;
 }
 
 void Enemy::doAttack(Character *target) {
@@ -26,17 +27,6 @@ void Enemy::takeDamage(int damage) {
     if(health <= 0) {
         cout << name << " has been defeated!" << endl;
     }
-}
-
-void Enemy::defend() {
-    DefenseBase = defense;
-    defense += defense * 0.2;
-    cout << name << " is defending!" << endl;
-    defense = DefenseBase;
-}
-
-void Enemy::resetDefense(){
-    defense = DefenseBase;
 }
 
 bool Enemy::shouldDefend(){
@@ -55,11 +45,14 @@ int Enemy::getExperience() {
 }
 
 void Enemy::levelUp() {
+    cout << "The enemy " << name <<  " has been upgraded!" << endl;
     level++;
     //Incrementar las estadisticas al subir de nivel
     health += 6;
+    maxHealth += 6;
     attack += 3;
     defense += 1;
+    defenseBase += 1;
     speed += 3;
 }
 

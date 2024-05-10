@@ -80,12 +80,12 @@ Character* Combat::getTarget(Character* attacker) {
 }
 
 void Combat::doCombat() {
-    cout<< "\n Battle begins!" << endl;
+    cout<< "\nBattle begins!" << endl;
     combatPrep();
     int round = 1;
     //Este while representa las rondas del combate
     while(enemies.size() > 0 && partyMembers.size() > 0) {
-        cout<<"Round " << round << endl;
+        cout<<"\n\tRound " << round << endl;
         vector<Character*>::iterator it = participants.begin();
         registerActions(it);
         executeActions(it);
@@ -99,6 +99,8 @@ void Combat::doCombat() {
         cout << "You lose!" << endl;
 
     }
+    cout << "\n\tStadistics: " << endl
+         << partyMembers[0]->toString() << endl;
 }
 
 void Combat::executeActions(vector<Character*>::iterator participant) {
@@ -111,18 +113,13 @@ void Combat::executeActions(vector<Character*>::iterator participant) {
             currentAction.target ->resetDefense();
         }
 
+        if (currentAction.target != nullptr && currentAction.target->getHealth() <= 0 && !currentAction.target->getIsPlayer()) {
+            Enemy* enemy = dynamic_cast<Enemy*>(currentAction.target);
+            partyMembers[0]->gainExperience(enemy, enemies);
+        }
         //Verifica si hay muertos
         checkParticipantStatus(*participant);
         checkParticipantStatus(currentAction.target);
-
-
-        if (currentAction.target != nullptr && currentAction.target->getHealth() <= 0 && !currentAction.target->getIsPlayer()) {
-            Player* player = dynamic_cast<Player*>(*participant);
-            Enemy* enemy = dynamic_cast<Enemy*>(currentAction.target);
-            if (player != nullptr && enemy != nullptr) {
-                player -> gainExperience(enemy);
-            }
-        }
     }
 }
 

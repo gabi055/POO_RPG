@@ -1,3 +1,3 @@
-C:/Users/gabri/Documents/POO_RPG/cmake-build-debug/CMakeFiles/rpg.dir
-C:/Users/gabri/Documents/POO_RPG/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/gabri/Documents/POO_RPG/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/gabri/Documents/POO_RPG_A/UsersgabriDocumentsPOO_RPG_A/cmake-build-debug/CMakeFiles/rpg.dir
+C:/Users/gabri/Documents/POO_RPG_A/UsersgabriDocumentsPOO_RPG_A/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/gabri/Documents/POO_RPG_A/UsersgabriDocumentsPOO_RPG_A/cmake-build-debug/CMakeFiles/rebuild_cache.dir

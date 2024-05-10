@@ -13,17 +13,19 @@ class Character {
 protected:
     char name[50];
     int health;
+    int maxHealth;
     int attack;
     int defense;
+    int defenseBase;
     int speed;
     bool isPlayer;
 public:
-    Character(const char* _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer);
+    Character(const char* _name, int _health, int _maxHealth, int _attack, int _defense, int _speed, bool _isPlayer);
 
     virtual void doAttack(Character *target) = 0;
     virtual void takeDamage(int damage) = 0;
-    virtual void defend() = 0;
-    virtual void resetDefense() = 0;
+    virtual void defend();
+    virtual void resetDefense();
 
 
     bool flee(Character* target);

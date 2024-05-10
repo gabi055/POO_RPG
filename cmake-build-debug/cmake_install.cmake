@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/gabri/Documents/POO_RPG
+# Install script for directory: C:/Users/gabri/Documents/POO_RPG_A/UsersgabriDocumentsPOO_RPG_A
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/gabri/Documents/POO_RPG/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/gabri/Documents/POO_RPG_A/UsersgabriDocumentsPOO_RPG_A/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

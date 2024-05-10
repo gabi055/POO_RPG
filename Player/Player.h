@@ -16,25 +16,23 @@ class Player: public Character {
 private:
     int level;
     int experience;
-    int DefenseBase;
     void SaveProgress();
 public:
-    Player(const char* _name, int _health, int _attack, int _defense, int _speed);
-    Player(const char* _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer, int _level, int _experience);
+    Player(const char* _name, int _health, int _maxHealth,  int _attack, int _defense, int _speed);
+    Player(const char* _name, int _health, int _maxHealth, int _attack, int _defense, int _speed, bool _isPlayer, int _level, int _experience);
     void doAttack(Character *target) override;
     void takeDamage(int damage) override;
-    void defend() override;
     void levelUp();
     Character* selectTarget(vector<Enemy*> possibleTargets);
     Action takeAction(vector<Enemy*> enemies);
     char* serialize();
     static Player* unserialize(char* buffer);
 
-    void gainExperience(Enemy* enemies);
-    static const unsigned int BUFFER_SIZE = sizeof (name) + sizeof (health) + sizeof(attack) + sizeof(defense) + sizeof(speed);
+    void gainExperience(Enemy* enemy, vector<Enemy *> enemies);
+    static const unsigned int BUFFER_SIZE = sizeof (name) + sizeof (health) + sizeof(maxHealth) + sizeof(attack) + sizeof(defense) + sizeof(defenseBase) + sizeof(speed) + sizeof(isPlayer) + sizeof(level) + sizeof(experience);
 
     //TODO: Implement use object
-    void resetDefense();
+    //void resetDefense();
 private:
     char buffer[Player::BUFFER_SIZE];
 };
